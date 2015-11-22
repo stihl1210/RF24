@@ -99,7 +99,7 @@ while 1:
 
         # Take the time, and send it.  This will block until complete
         print('Now sending length {} ... '.format(next_payload_size), end="")
-		send_payload = 'siemanko'
+	send_payload = 'siemanko'
         radio.write(send_payload)
 
         # Now, continue listening
