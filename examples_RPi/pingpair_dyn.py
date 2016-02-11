@@ -99,7 +99,7 @@ while 1:
 
         # Take the time, and send it.  This will block until complete
         print('Now sending length {} ... '.format(next_payload_size), end="")
-	send_payload = 'siemanko'
+        send_payload = getOutput()
         radio.write(send_payload)
 
         # Now, continue listening
@@ -139,4 +139,18 @@ while 1:
             # callback routine set for irq pin takes care for reading -
             # do nothing, just sleeps in order not to burn cpu by looping
             time.sleep(1000)
+
+            
+###PARSE COMMANDS###
+def getOutput():
+    output = parseInput(str(input('put command')))
+    return output
+
+def getInput(x):
+    switch = {
+        '1' : "command",
+        '2' : "run",
+        '3' : "something"
+        }
+    return switch.get(x, 'nothing')
 
