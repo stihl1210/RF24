@@ -62,7 +62,6 @@ while 1:
 	radio.stopListening()
 
 	send_payload = getOutput()
-	outputLength = len(send_payload)
 	
 	radio.write(send_payload)
 
@@ -81,11 +80,11 @@ while 1:
 		print('failed, response timed out.')
 	else:
 		# Grab the response, compare, and send to debugging spew
-		len = radio.getDynamicPayloadSize()
-		receive_payload = radio.read(len)
+		length = radio.getDynamicPayloadSize()
+		receive_payload = radio.read(length)
 
 		# Spew it
-		print('got response size={} value="{}"'.format(len, receive_payload.decode('utf-8')))
+		print('got response size={} value="{}"'.format(length, receive_payload.decode('utf-8')))
 
 	# Update size for next time.
 	time.sleep(0.1)        
