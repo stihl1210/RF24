@@ -20,19 +20,19 @@ radio = RF24(22, 0);
 	
 def getOutput():
     output = getCommand(str(input('put command\n')))
-    value = str(input('get value\n'))
+    value = str(input('put value\n'))
     
     return output+'='+value
                     
 def getCommand(x):
     switch = {
-        '0' : "messure",
-        '1' : "gofront",
-        '2' : "goback",
-        '3' : "goleft",
-        '4' : "goright"
+        '0' : "M",
+        '1' : "U",
+        '2' : "D",
+        '3' : "L",
+        '4' : "R"
         }
-    return switch.get(x, 'nothing')
+    return switch.get(x, 'N')
 
 
 pipes = [0xF0F0F0F0E1, 0xF0F0F0F0D2]
@@ -41,7 +41,6 @@ max_payload_size = 32
 inp_role = 'none'
 millis = lambda: int(round(time.time() * 1000))
 
-print('pyRF24/examples/pingpair_dyn/')
 radio.begin()
 radio.enableDynamicPayloads()
 radio.setRetries(5,15)
