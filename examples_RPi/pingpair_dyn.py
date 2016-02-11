@@ -38,6 +38,22 @@ radio = RF24(22, 0);
 #irq_gpio_pin = 24
 
 ##########################################
+            
+###PARSE COMMANDS###
+
+def getOutput():
+    output = parseInput(str(input('put command')))
+    return output
+
+def getInput(x):
+    switch = {
+        '1' : "command",
+        '2' : "run",
+        '3' : "something"
+        }
+    return switch.get(x, 'nothing')
+
+### COMMUNICATION ###
 def try_read_data(channel=0):
     if radio.available():
         while radio.available():
@@ -140,17 +156,4 @@ while 1:
             # do nothing, just sleeps in order not to burn cpu by looping
             time.sleep(1000)
 
-            
-###PARSE COMMANDS###
-def getOutput():
-    output = parseInput(str(input('put command')))
-    return output
-
-def getInput(x):
-    switch = {
-        '1' : "command",
-        '2' : "run",
-        '3' : "something"
-        }
-    return switch.get(x, 'nothing')
 
