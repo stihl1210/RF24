@@ -41,10 +41,6 @@ radio = RF24(22, 0);
             
 ###PARSE COMMANDS###
 
-def getOutput():
-    output = parseInput(str(input('put command')))
-    return output
-
 def getInput(x):
     switch = {
         '1' : "command",
@@ -52,6 +48,11 @@ def getInput(x):
         '3' : "something"
         }
     return switch.get(x, 'nothing')
+	
+def getOutput():
+    output = parseInput(str(input('put command')))
+    return output
+
 
 ### COMMUNICATION ###
 def try_read_data(channel=0):
