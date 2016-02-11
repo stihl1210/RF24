@@ -40,19 +40,24 @@ radio = RF24(22, 0);
 ##########################################
             
 ###PARSE COMMANDS###
-
-	
-def parseInput(x):
-    switch = {
-        '1' : "command",
-        '2' : "run",
-        '3' : "something"
-        }
-    return switch.get(x, 'nothing')
 	
 def getOutput():
-    output = parseInput(str(input('put command')))
-    return output
+    output = getCommand(str(input('put command\n')))
+    value = str(input('get value\n'))
+    
+    return output+'='+value
+                    
+def getCommand(x):
+    switch = {
+        '0' : "messure",
+        '1' : "gofront",
+        '2' : "goback",
+        '3' : "goleft",
+        '4' : "goright"
+        }
+    return switch.get(x, 'nothing')
+
+
 
 
 ### COMMUNICATION ###
@@ -78,7 +83,6 @@ max_payload_size = 32
 payload_size_increments_by = 1
 next_payload_size = min_payload_size
 inp_role = 'none'
-send_payload = b'ABCDEFGHIJKLMNOPQRSTUVWXYZ789012'
 millis = lambda: int(round(time.time() * 1000))
 
 print('pyRF24/examples/pingpair_dyn/')
