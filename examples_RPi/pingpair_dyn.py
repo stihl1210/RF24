@@ -68,48 +68,49 @@ radio.printDetails()
 
 print(' ************ Role Setup *********** ')
 
+
 print('Role: Ping Out, starting transmission')
 radio.openWritingPipe(pipes[0])
 radio.openReadingPipe(1,pipes[1])
 
 # forever loop
 while 1:
-    if inp_role == '1':   # ping out
-        # The payload will always be the same, what will change is how much of it we send.
+# The payload will always be the same, what will change is how much of it we send.
 
-        # First, stop listening so we can talk.
-        radio.stopListening()
+	# First, stop listening so we can talk.
+	radio.stopListening()
 
-        # Take the time, and send it.  This will block until complete
-        print('Now sending length {} ... '.format(next_payload_size), end="")
-        send_payload = getOutput()
-        radio.write(send_payload)
+	# Take the time, and send it.  This will block until complete
+	print('Now sending length {} ... '.format(next_payload_size), end="")
+	send_payload = getOutput()
+	radio.write(send_payload)
 
-        # Now, continue listening
-        radio.startListening()
+	# Now, continue listening
+	radio.startListening()
 
-        # Wait here until we get a response, or timeout
-        started_waiting_at = millis()
-        timeout = False
-        while (not radio.available()) and (not timeout):
-            if (millis() - started_waiting_at) > 500:
-                timeout = True
+	# Wait here until we get a response, or timeout
+	started_waiting_at = millis()
+	timeout = False
+	while (not radio.available()) and (not timeout):
+		if (millis() - started_waiting_at) > 500:
+			timeout = True
 
-        # Describe the results
-        if timeout:
-            print('failed, response timed out.')
-        else:
-            # Grab the response, compare, and send to debugging spew
-            len = radio.getDynamicPayloadSize()
-            receive_payload = radio.read(len)
+	# Describe the results
+	if timeout:
+		print('failed, response timed out.')
+	else:
+		# Grab the response, compare, and send to debugging spew
+		len = radio.getDynamicPayloadSize()
+		receive_payload = radio.read(len)
 
-            # Spew it
-            print('got response size={} value="{}"'.format(len, receive_payload.decode('utf-8')))
+		# Spew it
+		print('got response size={} value="{}"'.format(len, receive_payload.decode('utf-8')))
 
-        # Update size for next time.
-        next_payload_size += payload_size_increments_by
-        if next_payload_size > max_payload_size:
-            next_payload_size = min_payload_size
-        time.sleep(0.1)
+	# Update size for next time.
+	next_payload_size += payload_size_increments_by
+	if next_payload_size > max_payload_size:
+		next_payload_size = min_payload_size
+	time.sleep(0.1)        
+
 
 
