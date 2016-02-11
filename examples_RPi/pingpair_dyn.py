@@ -80,9 +80,10 @@ while 1:
 	# First, stop listening so we can talk.
 	radio.stopListening()
 
-	# Take the time, and send it.  This will block until complete
-	print('Now sending length {} ... '.format(next_payload_size), end="")
 	send_payload = getOutput()
+	
+	# Take the time, and send it.  This will block until complete
+	print('Now sending length {} ... '.format(len(send_payload)), end="")
 	radio.write(send_payload)
 
 	# Now, continue listening
@@ -107,9 +108,6 @@ while 1:
 		print('got response size={} value="{}"'.format(len, receive_payload.decode('utf-8')))
 
 	# Update size for next time.
-	next_payload_size += payload_size_increments_by
-	if next_payload_size > max_payload_size:
-		next_payload_size = min_payload_size
 	time.sleep(0.1)        
 
 
