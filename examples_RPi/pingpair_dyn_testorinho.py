@@ -71,7 +71,7 @@ radio.printDetails()
 
 print(' ************ Role Setup *********** ')
 while (inp_role !='0') and (inp_role !='1'):
-    inp_role = str(input('Choose a role: Enter 0 for receiver, 1 for transmitter (CTRL+C to exit)  = HEHEHEHE'))
+    inp_role = str(input('Choose a role: Enter 0 for receiver, 1 for transmitter (CTRL+C to exit) '))
 
 if inp_role == '0':
     print('Role: Pong Back, awaiting transmission')
