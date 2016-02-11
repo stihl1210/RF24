@@ -41,7 +41,8 @@ radio = RF24(22, 0);
             
 ###PARSE COMMANDS###
 
-def getInput(x):
+	
+def parseInput(x):
     switch = {
         '1' : "command",
         '2' : "run",
