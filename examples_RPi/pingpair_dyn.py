@@ -35,25 +35,6 @@ def getCommand(x):
     return switch.get(x, 'nothing')
 
 
-
-
-### COMMUNICATION ###
-def try_read_data(channel=0):
-    if radio.available():
-        while radio.available():
-            len = radio.getDynamicPayloadSize()
-            receive_payload = radio.read(len)
-            print('Got payload size={} value="{}"'.format(len, receive_payload.decode('utf-8')))
-            # First, stop listening so we can talk
-            radio.stopListening()
-
-            # Send the final one back.
-            radio.write(receive_payload)
-            print('Sent response.')
-
-            # Now, resume listening so we catch the next packets.
-            radio.startListening()
-
 pipes = [0xF0F0F0F0E1, 0xF0F0F0F0D2]
 min_payload_size = 4
 max_payload_size = 32
@@ -81,9 +62,7 @@ while 1:
 	radio.stopListening()
 
 	send_payload = getOutput()
-	length = len(send_payload)
-	# Take the time, and send it.  This will block until complete
-	print('Now sending length {} ... '.format(length), end="")
+	outputLength = len(send_payload)
 	
 	radio.write(send_payload)
 
